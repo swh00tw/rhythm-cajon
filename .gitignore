@@ -1,29 +1,10 @@
-
+node_modules
 dist
-.solid
-.output
-.vercel
-.netlify
-netlify
-.vinxi
-
-# Environment
+.next
 .env
-.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.test
 
-# dependencies
-/node_modules
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-*.launch
-.settings/
-
-# Temp
-gitignore
-
-# System Files
-.DS_Store
-Thumbs.db
