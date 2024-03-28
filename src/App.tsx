@@ -1,13 +1,20 @@
 import { cn } from "./utils/cn";
 import { motion } from "framer-motion";
-import { useRef } from "react";
-import { gameConfig, beatMap } from "./gameConfig";
+import { useRef, useEffect } from "react";
+import { gameConfig } from "./gameConfig";
 import { useGameControl } from "./hooks/useGameControl";
 import { useMusic } from "./hooks/useMusic";
+import { useGlobalAudioPlayer } from "react-use-audio-player";
 
 function App() {
+  const { load, isLoading, isReady, play: playMusic } = useGlobalAudioPlayer();
+
+  useEffect(() => {
+    load("./yellow-short.wav", {});
+  }, []);
+
   const gameStartTimeRef = useRef(new Date().getTime());
-  const { sortedTs, beats } = useMusic();
+  const { sortedTs, beats, beatMap } = useMusic();
   const {
     pressed,
     countHit,
@@ -36,7 +43,15 @@ function App() {
     >
       {!hasStarted && !hasEnded ? (
         <div>
-          <button onClick={play}>play</button>
+          <button
+            onClick={() => {
+              play();
+              playMusic();
+            }}
+            disabled={isLoading || !isReady}
+          >
+            {isLoading || !isReady ? "loading..." : "play"}
+          </button>
         </div>
       ) : hasEnded ? (
         <div>
