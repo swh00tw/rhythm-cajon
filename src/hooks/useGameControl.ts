@@ -11,6 +11,22 @@ export const useGameControl = ({
 }) => {
   const [pressed, setPressed] = useState(false);
   const [countHit, setCountHit] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [hasEnded, setHasEnded] = useState(false);
+
+  const play = () => {
+    setHasStarted(true);
+  };
+
+  const restart = () => {
+    setHasEnded(false);
+    setHasStarted(true);
+    setCountHit(0);
+  };
+
+  const handleGameOver = () => {
+    setHasEnded(true);
+  };
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === " ") {
@@ -43,5 +59,13 @@ export const useGameControl = ({
     };
   }, [countHit]);
 
-  return { pressed, countHit };
+  return {
+    pressed,
+    countHit,
+    play,
+    restart,
+    hasStarted,
+    hasEnded,
+    handleGameOver,
+  };
 };

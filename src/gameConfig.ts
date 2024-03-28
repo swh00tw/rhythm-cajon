@@ -1,6 +1,7 @@
 export const gameConfig = {
   showUpDuration: 2000, // how many second the dot will show up before the hitting timing
   tolerateDuration: 200, // how many second the dot will tolerate before or after the hitting timing
+  gameOverDuration: 4000, // how many second the game will show the game over screen
 } as const;
 
 export const beatMap: Record<
