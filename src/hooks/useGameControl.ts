@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import { binarySearch } from "../utils/binarySearch";
 import { gameConfig, beats } from "../gameConfig";
 
+function getClosestIndex(sortedTs: number[], startTime: number) {
+  const currentTime = new Date().getTime();
+  const elapsed = currentTime - startTime;
+  const closestIndex = binarySearch(sortedTs, elapsed, (mid, target) => {
+    return Math.abs(target - sortedTs[mid]) <= gameConfig.tolerateDuration;
+  });
+  return closestIndex;
+}
+
 export const useGameControl = ({
   gameStartTimeRef,
   sortedTs,
@@ -31,13 +40,23 @@ export const useGameControl = ({
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === " ") {
       setPressed(true);
-      const currentTime = new Date().getTime();
-      const elapsed = currentTime - gameStartTimeRef.current;
-
-      const closestIndex = binarySearch(sortedTs, elapsed, (mid, target) => {
-        return Math.abs(target - sortedTs[mid]) <= gameConfig.tolerateDuration;
-      });
-      if (closestIndex !== null && !beats[closestIndex].hit) {
+      const closestIndex = getClosestIndex(sortedTs, gameStartTimeRef.current);
+      if (
+        closestIndex !== null &&
+        !beats[closestIndex]?.hit &&
+        beats[closestIndex].type === "A"
+      ) {
+        setCountHit(countHit + 1);
+        beats[closestIndex].hit = true;
+      }
+    } else if (event.key === "o") {
+      setPressed(true);
+      const closestIndex = getClosestIndex(sortedTs, gameStartTimeRef.current);
+      if (
+        closestIndex !== null &&
+        !beats[closestIndex]?.hit &&
+        beats[closestIndex].type === "B"
+      ) {
         setCountHit(countHit + 1);
         beats[closestIndex].hit = true;
       }

@@ -23,8 +23,6 @@ function App() {
     sortedTs,
   });
 
-  console.log(hasEnded);
-
   return (
     <div
       className={cn(

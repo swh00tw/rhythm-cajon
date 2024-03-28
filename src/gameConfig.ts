@@ -9,23 +9,20 @@ export const beatMap: Record<
   {
     type: "A" | "B";
     ts: number;
-    hit: boolean;
+    hit?: boolean;
   }
 > = {
   2000: {
     type: "A",
     ts: 2000,
-    hit: false,
   },
   3000: {
     type: "B",
     ts: 3000,
-    hit: false,
   },
   4000: {
     type: "A",
     ts: 4000,
-    hit: false,
   },
 };
 
