@@ -4,14 +4,13 @@ export const gameConfig = {
   gameOverDuration: 4000, // how many second the game will show the game over screen
 } as const;
 
-export const beatMap: Record<
-  number,
-  {
-    type: "A" | "B";
-    ts: number;
-    hit?: boolean;
-  }
-> = {
+export type Beat = {
+  type: "A" | "B";
+  ts: number;
+  hit?: boolean;
+};
+
+export const beatMap: Record<number, Beat> = {
   2000: {
     type: "A",
     ts: 2000,

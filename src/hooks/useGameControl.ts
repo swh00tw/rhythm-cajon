@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { binarySearch } from "../utils/binarySearch";
-import { gameConfig, beats } from "../gameConfig";
+import { gameConfig, Beat } from "../gameConfig";
 
 function getClosestIndex(sortedTs: number[], startTime: number) {
   const currentTime = new Date().getTime();
@@ -14,9 +14,11 @@ function getClosestIndex(sortedTs: number[], startTime: number) {
 export const useGameControl = ({
   gameStartTimeRef,
   sortedTs,
+  beats,
 }: {
   gameStartTimeRef: React.MutableRefObject<number>;
   sortedTs: number[];
+  beats: Beat[];
 }) => {
   const [pressed, setPressed] = useState(false);
   const [countHit, setCountHit] = useState(0);

@@ -3,13 +3,11 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { gameConfig, beatMap } from "./gameConfig";
 import { useGameControl } from "./hooks/useGameControl";
+import { useMusic } from "./hooks/useMusic";
 
 function App() {
-  const sortedTs: number[] = Object.keys(beatMap)
-    .map((k) => parseInt(k))
-    .sort((a, b) => a - b);
   const gameStartTimeRef = useRef(new Date().getTime());
-
+  const { sortedTs, beats } = useMusic();
   const {
     pressed,
     countHit,
@@ -21,6 +19,7 @@ function App() {
   } = useGameControl({
     gameStartTimeRef,
     sortedTs,
+    beats,
   });
 
   return (
